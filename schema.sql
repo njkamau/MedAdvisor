@@ -1,5 +1,3 @@
-drop database if exists medicAdvice;
-
 create database medicAdvice;
 
 use medicAdvice;
@@ -61,6 +59,19 @@ create table question
 	details text,
 	time_added timestamp not null default CURRENT_TIMESTAMP,	
 	primary key (question_id)
+);
+
+create table question_referral
+(
+	question_referral_id int not null auto_increment,
+    question_id int,
+    from_medic_id int,
+    to_medic_id int,
+    referral_status int(1) not null default 0, #1 for viewd 0 for not viewed.        
+    primary key(question_referral_id),
+    foreign key(question_id) references question(question_id),
+    foreign key(from_medic_id) references medic(medic_id),
+    foreign key(to_medic_id) references medic(medic_id)
 );
 
 create table user_question
