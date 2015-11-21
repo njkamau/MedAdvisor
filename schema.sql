@@ -11,14 +11,6 @@ create table county
     primary key (county_id)
 );
 
-create table adminstrator
-(
-	admin_email varchar(100) not null,
-    firstname varchar(100),
-    lastname varchar(100),
-    password varchar(40),
-    salt varchar(40)
-);
 
 create table public_user
 (
