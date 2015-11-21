@@ -1,17 +1,34 @@
-create database medicAdvice;
+drop database if exists medicInfo;
 
-use medicAdvice;
+create database medicInfo;
 
+use medicInfo;
+
+create table county
+(
+	county_id int not null auto_increment,
+    county_name varchar(50),
+    primary key (county_id)
+);
+
+create table adminstrator
+(
+	admin_email varchar(100) not null,
+    firstname varchar(100),
+    lastname varchar(100),
+    password varchar(40),
+    salt varchar(40)
+);
 
 create table public_user
 (
     user_id int not null auto_increment,    
 	gender char(1) not null default 'M',
     date_of_birth date,
-    county varchar(50),
-    town varchar(50),
+    county_id int,   
     time_added timestamp not null default CURRENT_TIMESTAMP,
-    primary key(user_id)
+    primary key(user_id),
+    foreign key(county_id) references county(county_id)
 );
 
 create table medic 
@@ -45,11 +62,11 @@ create table category_subscription
 (
 	subscription_id int not null auto_increment,
 	category_id int not null,
-	medic_id int,
+	user_id int,
 	time_added timestamp not null default CURRENT_TIMESTAMP,
 	primary key(subscription_id),
-	foreign key(category_id) references category(category_id),
-	foreign key(medic_id) references medic (medic_id)
+    foreign key(category_id) references category(category_id),
+	foreign key(user_id) references public_user(user_id)	
 );
 
 create table question 
@@ -118,17 +135,6 @@ create table advice_alert
 );
 
 
-create table advice_vote
-(
-	advice_vote_id int not null auto_increment,
-    advice_id int,
-    medic_id int,
-    vote int not null default 0,
-    primary key(advice_vote_id),
-    foreign key(advice_id) references advice(advice_id),
-    foreign key (medic_id) references medic (medic_id)
-);
-
 create table advice_helpfulness
 (
 	advice_helpfulness_id int not null auto_increment,
@@ -163,6 +169,7 @@ create table comment_vote
     foreign key (comment_id) references comment (comment_id),
     foreign key (medic_id) references medic (medic_id)
 );
+
 
 create table post
 (
