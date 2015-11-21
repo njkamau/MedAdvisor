@@ -1,8 +1,8 @@
-drop database if exists medicInfo;
+drop database if exists medinfo;
 
-create database medicInfo;
+create database medinfo;
 
-use medicInfo;
+use medinfo;
 
 create table county
 (
