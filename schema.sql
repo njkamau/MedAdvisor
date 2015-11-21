@@ -118,12 +118,11 @@ create table advice_alert
 	advice_alert_id int not null auto_increment,
     advice_id int,
     alert_message varchar(150),
-    alert_period int, #number of days for which the alert should be active
-    alert_interval int, #number of hour after which an alert should appear
+    alert_period int, 
+    alert_interval int, 
     primary key(advice_alert_id),
     foreign key(advice_id) references advice(advice_id)    
 );
-
 
 create table advice_helpfulness
 (
@@ -136,39 +135,16 @@ create table advice_helpfulness
     foreign key(user_id) references public_user(user_id)
 );
 
-
-create table comment
-(
-	comment_id int not null auto_increment,
-	advice_id int,
-	medic_id int ,
-	comment text not null,
-	time_added timestamp not null default CURRENT_TIMESTAMP,	
-	primary key (comment_id),
-	foreign key (advice_id) references advice (advice_id),
-	foreign key (medic_id) references medic (medic_id)
-);
-
-create table comment_vote
-(
-	comment_vote_id int not null auto_increment,
-	comment_id int,
-    medic_id int,
-    vote int not null default 0, # -1 for a down_vote, 1 for an upvote 0 for default
-    primary key (comment_vote_id),
-    foreign key (comment_id) references comment (comment_id),
-    foreign key (medic_id) references medic (medic_id)
-);
-
-
 create table post
 (
 	post_id int not null,    
     medic_id int,
+    category_id int, 
     post_title varchar(50),
     summary varchar (50) not null,
 	details text,
     time_added timestamp not null default CURRENT_TIMESTAMP,
     primary key(post_id),
-    foreign key (medic_id) references medic (medic_id)
+    foreign key (medic_id) references medic (medic_id),
+    foreign key(category_id) references category(category_id)
 );
