@@ -86,20 +86,13 @@ create table user_question
 	user_question_id int not null auto_increment,
     question_id int,
     user_id int,
+    view_count int,
+    priority_count int,
 	foreign key(question_id) references question(question_id),
 	foreign key(user_id) references public_user(user_id),
     primary key(user_question_id)
 );
 
-
-create table question_vote
-(
-	question_vote_id int not null auto_increment,
-    medic_id int,
-    vote int not null default 0,
-    foreign key(medic_id) references medic (medic_id),
-    primary key (question_vote_id)
-);
 
 create table advice 
 (
@@ -144,7 +137,19 @@ create table post
     summary varchar (50) not null,
 	details text,
     time_added timestamp not null default CURRENT_TIMESTAMP,
+    view_count int, 
     primary key(post_id),
     foreign key (medic_id) references medic (medic_id),
     foreign key(category_id) references category(category_id)
+);
+
+create table post_helpfulness
+(
+	post_helpfulness_id int not null auto_increment,
+    post_id int,
+    user_id int, 
+    vote int not null default 0,
+    primary key(post_helpfulness_id),    
+    foreign key(post_id) references post(post_id),
+    foreign key(user_id) references public_user(user_id)
 );
