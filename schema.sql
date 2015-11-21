@@ -50,12 +50,10 @@ create table medic
 create table category
 (
 	category_id int not null auto_increment,
-	name varchar(30) not null,
-	medic_id int,
+	name varchar(30) not null,	
 	description text not null,
 	time_added timestamp not null default CURRENT_TIMESTAMP,
-	primary key (category_id),
-	foreign key (medic_id) references medic (medic_id)
+	primary key (category_id)	
 );
 
 create table category_subscription 
